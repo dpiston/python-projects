@@ -2,6 +2,7 @@ import smtplib
 import pandas as pd
 import requests
 import sys
+import datetime
 from bs4 import BeautifulSoup
 from price_parser import Price
 from openpyxl import load_workbook
@@ -18,17 +19,18 @@ def main():
     if SAVE_TO_FILE:
         with pd.ExcelWriter(PRICES_FILE, mode="a", engine="openpyxl", if_sheet_exists="overlay") as writer:
             wb = load_workbook(PRICES_FILE, read_only=True)
-            for index, row in df_updated.iterrows():
-                if row["product"] in wb:
-                    rownum = writer.sheets[row["product"]].max_row
-                else:
-                    rownum = 0
-                row[["price"]].to_excel(writer,
-                                        sheet_name=row["product"],
-                                        index=False,
-                                        header=False,
-                                        startrow=rownum,
-                                        startcol=1)
+            df_updated.to_excel(writer,index=False,header=False)
+            # for index, row in df_updated.iterrows():
+            #     if row["product"] in wb:
+            #         rownum = writer.sheets[row["product"]].max_row
+            #     else:
+            #         rownum = 0
+            #     row.to_excel(writer,
+            #                  sheet_name=row["product"],
+            #                  index=False,
+            #                  header=False,
+            #                  startrow=rownum,
+            #                  startcol=1)
     if SEND_MAIL:
         send_mail(df_updated)
 
@@ -43,6 +45,7 @@ def process_products(df):
     for product in df.to_dict("records"):
         html = product["url"]
         product["price"] = get_price(html)
+        product["date_timte"] = datetime.datetime.now()
         update_products.append(product)
     return pd.DataFrame(update_products)
 
@@ -71,7 +74,8 @@ def send_mail(df):
     with smtplib.SMTP("smtp-mail.outlook.com", 587) as smtp:
         smtp.starttls()
         smtp.login("dpiston111@hotmail.com", "nzzqsacvdenbngan")
-        smtp.sendmail("dpiston111@hotmail.com", "dpiston111@hotmail.com", message_text)
+        smtp.sendmail("dpiston111@hotmail.com",
+                      "dpiston111@hotmail.com", message_text)
 
 
 def get_mail(df):

@@ -71,11 +71,11 @@ def extract_source(url):
 
 def send_mail(df):
     message_text = get_mail(df)
-    with smtplib.SMTP("", ) as smtp:
+    with smtplib.SMTP("smtp address", port) as smtp:
         smtp.starttls()
-        smtp.login("", "")
-        smtp.sendmail("",
-                      "", message_text)
+        smtp.login("email address", "password")
+        smtp.sendmail("email address",
+                      "email address", message_text)
 
 
 def get_mail(df):

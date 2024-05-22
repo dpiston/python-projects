@@ -6,6 +6,7 @@ Some Various projects I have made or am working on in C++.
 
 ### Sudoku
 A sudoku puzzle solver utlizing CV2 and numpy, very purpose built and runs on my phone. Works with the [Easybrain Sudoku App](https://play.google.com/store/apps/details?id=com.easybrain.sudoku.android&hl=en_US&gl=US&pli=1).
+
 -**Search for Sudoku Screenshots**: The program searches for Sudoku screenshots in the screenshot folder on your phone.
 
 -**Move Files**: It moves the detected screenshot files to its local file tree for processing.

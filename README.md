@@ -2,6 +2,9 @@
 Some Various projects I have made or am working on in C++.
 
 ### Price Tracker
+Reads data from the "products" excel workbook into a pands dataframe. Then parses the HTML page for a posted price, appends that and the date/time pulled into a new dataframe.
+
+The new dataframe is then saved to the "prices" workbook for later use.
 
 
 ### Sudoku

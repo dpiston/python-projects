@@ -45,7 +45,7 @@ def process_products(df):
     for product in df.to_dict("records"):
         html = product["url"]
         product["price"] = get_price(html)
-        product["date_timte"] = datetime.datetime.now()
+        product["date_time"] = datetime.datetime.now()
         update_products.append(product)
     return pd.DataFrame(update_products)
 
@@ -71,11 +71,11 @@ def extract_source(url):
 
 def send_mail(df):
     message_text = get_mail(df)
-    with smtplib.SMTP("smtp-mail.outlook.com", 587) as smtp:
+    with smtplib.SMTP("", ) as smtp:
         smtp.starttls()
-        smtp.login("dpiston111@hotmail.com", "nzzqsacvdenbngan")
-        smtp.sendmail("dpiston111@hotmail.com",
-                      "dpiston111@hotmail.com", message_text)
+        smtp.login("", "")
+        smtp.sendmail("",
+                      "", message_text)
 
 
 def get_mail(df):
